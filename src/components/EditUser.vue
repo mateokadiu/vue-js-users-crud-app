@@ -2,7 +2,9 @@
   <div class="text-center">
     <v-dialog v-model="showModal" width="600">
       <v-card>
-        <v-card-title class="text-h5 grey lighten-2"> Edit User </v-card-title>
+        <v-card-title class="text-h5 grey lighten-2">
+          Edit User Info</v-card-title
+        >
         <v-divider></v-divider>
         <v-card-text>
           <v-form>
