@@ -36,6 +36,12 @@
                         <label>Use Google Location</label>
                       </div>
                     </div>
+                    <!-- <GMapAutocomplete
+                    v-model="state.address.street"
+                    @place_changed="setPlace"
+                    placeholder="Reter 43"
+                  >
+                  </GMapAutocomplete> -->
                     <input
                       placeholder="Reter 43"
                       v-model="state.address.street"
@@ -213,6 +219,9 @@ export default {
     hide() {
       this.showModal = false;
     },
+    // setPlace(place){
+    //   this.state.address.street = place;
+    // },
     submitForm() {
       this.v$.$validate();
       if (!this.v$.$error) {
