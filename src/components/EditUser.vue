@@ -176,8 +176,8 @@ export default {
         city: { required },
         zipcode: { required },
         geo: {
-          lat: { required },
-          lng: { required },
+          lat: {},
+          lng: {},
         },
       },
       phone: { required },
