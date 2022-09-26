@@ -68,7 +68,7 @@ export default {
       this.$refs.EditUser.show(user);
     },
     addUser(user) {
-      this.users.push({ id: ++id, ...user });
+      this.users.push({ id: ++id, ...user, address: { ...user.address } });
     },
     editUser(user) {
       this.users = this.users.map((u) => {

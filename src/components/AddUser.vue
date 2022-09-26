@@ -1,4 +1,5 @@
 <template>
+  <CheckboxClicked v-if="location" @updated="onClickCheckbox" />
   <div class="text-center">
     <v-dialog v-model="showModal" width="600">
       <v-card>
@@ -156,6 +157,7 @@
 import { reactive } from "vue";
 import { useVuelidate } from "@vuelidate/core";
 import { required, email, helpers } from "@vuelidate/validators";
+import CheckboxClicked from "./CheckboxClicked.vue";
 
 export default {
   data() {
@@ -168,8 +170,14 @@ export default {
   setup() {
     const phoneRegex = helpers.regex(/^\+(?:[0-9] ?){6,14}[0-9]$/);
     const phoneMessage = helpers.withMessage(
-      "Phone number format invalid!",
+      "Phone number format invalid",
       phoneRegex
+    );
+
+    const zipcodeRegex = helpers.regex(/^[0-9]{4,6}$/);
+    const zipcodeMessage = helpers.withMessage(
+      "Zip Code should be from 4 to 6 digits",
+      zipcodeRegex
     );
     const state = reactive({
       name: "",
@@ -193,7 +201,7 @@ export default {
       address: {
         street: { required },
         city: { required },
-        zipcode: { required },
+        zipcode: { required, zipcodeMessage },
         geo: {
           lat: {},
           lng: {},
@@ -201,9 +209,7 @@ export default {
       },
       phone: { required, phoneMessage },
     };
-
     const v$ = useVuelidate(rules, state);
-
     return { state, v$ };
   },
   methods: {
@@ -223,6 +229,10 @@ export default {
       this.state.address.geo.lng = "";
       this.v$.$reset();
     },
+    onClickCheckbox(pos) {
+      this.state.address.geo.lat = pos.lat;
+      this.state.address.geo.lng = pos.lng;
+    },
     // setPlace(place){
     //   this.state.address.street = place;
     // },
@@ -237,6 +247,7 @@ export default {
   props: {
     addUser: Function,
   },
+  components: { CheckboxClicked },
 };
 </script>
 
