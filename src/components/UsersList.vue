@@ -55,17 +55,6 @@ export default {
     };
   },
   methods: {
-    submitForm() {
-      this.v$.$validate(); // checks all inputs
-      if (!this.v$.$error) {
-        if (this.mode === "add") this.users.push({ id: ++id, ...this.state });
-        if (this.mode == "edit") this.users.filter((u) => u == u);
-        alert("Form successfully submitted.");
-        this.dialog = true;
-      } else {
-        //TODO
-      }
-    },
     async fetchUsers() {
       this.users = [];
       const res = await fetch("https://jsonplaceholder.typicode.com/users");
