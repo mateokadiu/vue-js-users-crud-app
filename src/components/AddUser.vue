@@ -2,7 +2,14 @@
   <div class="text-center">
     <v-dialog v-model="showModal" width="600">
       <v-card>
-        <v-card-title class="text-h5 lighten-2"> New User Info </v-card-title>
+        <div class="card-header">
+          <v-card-title class="text-h5 lighten-2"> New User Info </v-card-title>
+          <span @click="hide()" class="cross-sign">
+            <div class="cross-sign_circle"></div>
+            <div class="cross-sign_stem"></div>
+            <div class="cross-sign_stem2"></div>
+          </span>
+        </div>
 
         <v-divider></v-divider>
         <v-card-text>
@@ -197,11 +204,24 @@ export default {
     show() {
       this.showModal = true;
     },
+    hide() {
+      this.showModal = false;
+      this.state.name = "";
+      this.state.username = "";
+      this.state.email = "";
+      this.state.phone = "";
+      this.state.address.street = "";
+      this.state.address.zipcode = "";
+      this.state.address.city = "";
+      this.state.address.geo.lat = "";
+      this.state.address.geo.lng = "";
+      this.v$.$reset();
+    },
     submitForm() {
       this.v$.$validate();
       if (!this.v$.$error) {
         this.addUser(this.state);
-        this.showModal = false;
+        this.hide();
       }
     },
   },
@@ -212,6 +232,55 @@ export default {
 </script>
 
 <style>
+.card-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.cross-sign {
+  display: inline-block;
+  width: 22px;
+  height: 22px;
+  position: relative;
+  transform: rotate(45deg);
+  align-self: center;
+  margin-right: 1rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.cross-sign:hover {
+  filter: brightness(90%);
+}
+
+.cross-sign_circle {
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  background-color: #f4f7fb;
+  border-radius: 11px;
+  left: 0;
+  top: 0;
+}
+
+.cross-sign_stem,
+.cross-sign_stem2 {
+  position: absolute;
+  background-color: #ccd2e3;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.cross-sign_stem {
+  width: 3px;
+  height: 9px;
+}
+
+.cross-sign_stem2 {
+  width: 9px;
+  height: 3px;
+}
 .v-card {
   color: #4e5964;
 }

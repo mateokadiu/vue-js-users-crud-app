@@ -2,9 +2,16 @@
   <div class="text-center">
     <v-dialog v-model="showModal" width="600">
       <v-card>
-        <v-card-title class="text-h5 grey lighten-2">
-          Edit User Info</v-card-title
-        >
+        <div class="card-header">
+          <v-card-title class="text-h5 lighten-2">
+            Edit User Info
+          </v-card-title>
+          <span @click="hide()" class="cross-sign">
+            <div class="cross-sign_circle"></div>
+            <div class="cross-sign_stem"></div>
+            <div class="cross-sign_stem2"></div>
+          </span>
+        </div>
         <v-divider></v-divider>
         <v-card-text>
           <v-form>
@@ -203,11 +210,14 @@ export default {
       this.state.address.geo.lat = user.address.geo.lat;
       this.state.address.geo.lng = user.address.geo.lng;
     },
+    hide() {
+      this.showModal = false;
+    },
     submitForm() {
       this.v$.$validate();
       if (!this.v$.$error) {
         this.editUser({ ...this.state, id: this.user.id });
-        this.showModal = false;
+        this.hide();
       }
     },
   },
